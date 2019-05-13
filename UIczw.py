@@ -15,7 +15,7 @@ from PIL.ImageQt import ImageQt
 
 import os
 
-from config import CZWexe
+from config import CZWexe, _SYS_ROOT_PATH_
 
 class czwUI(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
@@ -46,7 +46,7 @@ class czwUI(QtWidgets.QMainWindow):
 
     def selectFile(self):
         fileDialog = QtWidgets.QFileDialog.getOpenFileName(self, "选择图片",
-                                                            "/Users/thatslc/PycharmProjects/ImageFace/data/czw",
+                                                            _SYS_ROOT_PATH_ + "data/czw",
                                                             ("图片文件(*.png *.jpg *.tif *.bmp)"))
         # fileDialog is a tuple ([files, ...], [format])
         if fileDialog[0] != '':
@@ -73,18 +73,16 @@ class czwUI(QtWidgets.QMainWindow):
         order = "%s --image_file_name %s --image_save_name /Users/thatslc/PycharmProjects/ImageFace/data/czw" % (CZWexe, self.path)
         res = os.system(order)
 
-        print(order)
-
         if res == 0:
             try:
-                img1 = self._openIMG("/Users/thatslc/PycharmProjects/ImageFace/data/czw/amp.jpg")
-                img2 = self._openIMG("/Users/thatslc/PycharmProjects/ImageFace/data/czw/phase.jpg")
-                img3 = self._openIMG("/Users/thatslc/PycharmProjects/ImageFace/data/czw/recover image.jpg")
+                img1 = self._openIMG(_SYS_ROOT_PATH_ + "data/czw/amp.jpg")
+                img2 = self._openIMG(_SYS_ROOT_PATH_ + "data/czw/phase.jpg")
+                img3 = self._openIMG(_SYS_ROOT_PATH_ + "data/czw/recover image.jpg")
                 self.ui.a.setPixmap(QtGui.QPixmap.fromImage(img1))
                 self.ui.b.setPixmap(QtGui.QPixmap.fromImage(img2))
                 self.ui.c.setPixmap(QtGui.QPixmap.fromImage(img3))
             except Exception as e:
-                print(e)
+                pass
 
     def showRaw(self):
         if not self.path:

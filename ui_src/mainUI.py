@@ -97,6 +97,25 @@ class Ui_MainWindow(object):
 "border-bottom-left-radius: 10px;\n"
 "border-bottom-right-radius: 10px;")
         self.listWidget.setObjectName("listWidget")
+        self.local = QtWidgets.QRadioButton(self.centralwidget)
+        self.local.setGeometry(QtCore.QRect(10, 570, 51, 20))
+        self.local.setChecked(True)
+        self.local.setObjectName("local")
+        self.net = QtWidgets.QRadioButton(self.centralwidget)
+        self.net.setGeometry(QtCore.QRect(60, 570, 51, 20))
+        self.net.setObjectName("net")
+        self.label_5 = QtWidgets.QLabel(self.centralwidget)
+        self.label_5.setGeometry(QtCore.QRect(940, 577, 12, 12))
+        self.label_5.setStyleSheet("width: 12px;\n"
+"height: 12px;\n"
+"border-radius: 6px;\n"
+"background-color: rgb(250,66,66);\n"
+"")
+        self.label_5.setText("")
+        self.label_5.setObjectName("label_5")
+        self.label_6 = QtWidgets.QLabel(self.centralwidget)
+        self.label_6.setGeometry(QtCore.QRect(960, 575, 60, 16))
+        self.label_6.setObjectName("label_6")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -114,4 +133,7 @@ class Ui_MainWindow(object):
         self.label_2.setText(_translate("MainWindow", "袁文涛"))
         self.label_3.setText(_translate("MainWindow", "曹志崴"))
         self.label_4.setText(_translate("MainWindow", "孙路畅"))
+        self.local.setText(_translate("MainWindow", "本地"))
+        self.net.setText(_translate("MainWindow", "网络"))
+        self.label_6.setText(_translate("MainWindow", "网络"))
 

@@ -8,13 +8,13 @@ m_date  @   2019-05-05
 multi threads searching for Digital-Image-Processing-HomeWork
 '''
 
-from config import _MINISIZE, _MAX_SEARCH_CLASS, _CLASS_PATH, _CLASSES, _IMG_PATH, _S_CLASSES, _D_CLASSES
+from config import _MINISIZE, _MAX_SEARCH_CLASS, _CLASS_PATH, _CLASSES, _IMG_PATH, _S_CLASSES, _D_CLASSES, SERVER_ADDR
 
 import re
 from PyQt5 import QtCore
 from PIL.ImageQt import ImageQt
 from PIL import Image
-import os
+import os, requests, json, time
 
 from engine.myPhoto import myPhoto, myPhoto2
 from engine.retrieval import retrieval
@@ -39,8 +39,9 @@ class searchBirdByTxt(QtCore.QThread):
         self.keyword = ""
         self.picPath = _IMG_PATH
 
-    def setKeyword(self, key):
+    def setKeyword(self, key, net=False):
         self.keyword = key
+        self.network = net
 
     def __del__(self):
         self.wait()
@@ -93,9 +94,12 @@ class searchBirdByPic(QtCore.QThread):
     def __init__(self, parent = None):
         super().__init__(parent)
         self.root = _IMG_PATH
+        self.network = False
 
-    def setKeyword(self, key):
+    def setKeyword(self, key, net=False):
+        print(key)
         self.path = key
+        self.network = net
 
     def __del__(self):
         self.wait()
@@ -144,15 +148,24 @@ class searchBirdByPic(QtCore.QThread):
             newPath.append(newp)
         return newPath
 
+    def netSearch(self, files):
+        d = json.dumps({
+            'data': files,
+        })
+        res = requests.post(SERVER_ADDR, data=d)
+        res = eval(res.text)
+        return eval(res['res'])
+
     def _find(self):
         retrieval_image_keys = self._dealPath()
+        if self.network:
+            return self.netSearch(retrieval_image_keys)
         dataset_root = '/Users/thatslc/Downloads/CUB_200_2011/CUB_200_2011'
         engine = retrieval(dataset_root, verbose=False)
         return engine.retrival_from_image_root(retrieval_image_keys)
         #test_data_result_mAP = retrieval_inst.cal_mAP()
         # with open(os.path.join(dataset_root, 'test_data_result_mAP.pkl'), 'wb') as f:
         # pkl.dump(test_data_result_mAP, f)
-
 
 
 class realSearch(QtCore.QThread):
@@ -184,3 +197,20 @@ class realSearch(QtCore.QThread):
                 break
 
         return suggestions
+
+class testNet(QtCore.QThread):
+    SCsignal = QtCore.pyqtSignal(int)
+    def __init__(self, parent = None):
+        super().__init__(parent)
+
+    def __del__(self):
+        self.wait()
+
+    def run(self):
+        while 1:
+            try:
+                ping = requests.get(SERVER_ADDR, timeout = 5).text
+                self.SCsignal.emit(1)
+            except:
+                self.SCsignal.emit(0)
+            time.sleep(5)

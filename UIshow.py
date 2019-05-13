@@ -10,7 +10,7 @@ UI for Digital-Image-Processing-HomeWork
 
 import datetime
 
-from PyQt5 import QtWidgets, QtGui
+from PyQt5 import QtWidgets, QtGui, QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 from ui_src.showUI import Ui_showUI
@@ -21,7 +21,7 @@ from engine.myPhoto import myPicLabel
 from config import LINE_PIC_NUM, _MINI_POS_SIZE, _MINISIZE, rightStyle, wrongStyle, normalStyle
 
 class showUI(QtWidgets.QMainWindow):
-    def __init__(self, parent=None):
+    def __init__(self, net=False, parent=None):
         super(showUI, self).__init__(parent)
         self.ui = Ui_showUI()
         self.ui.setupUi(self)
@@ -31,6 +31,7 @@ class showUI(QtWidgets.QMainWindow):
         self.photoData = None
         self.picSearchState = False
         self.hasData = False
+        self.network = net
 
         # 设置 QListWidget 的属性
         self.ui.listWidget.setViewMode(QtWidgets.QListView.IconMode)
@@ -43,9 +44,9 @@ class showUI(QtWidgets.QMainWindow):
         self.ui.wrongNUM.setStyleSheet("color: rgb(200, 10, 10);")
 
         self.searchThreadTXT = searchBirdByTxt()
-        self.searchThreadPIC = searchBirdByPic()
-        self.searchThreadPIC.SCsignal.connect(self.showResultOnModel)
         self.searchThreadTXT.SCsignal.connect(self.showResult)
+
+        self.mutex = QtCore.QMutex
 
     def _showEmpty(self):
         print("THERE ARE NOTHING.")
@@ -154,7 +155,7 @@ class showUI(QtWidgets.QMainWindow):
         ms = spend.microseconds
         ms /= 1000.0
         ss = spend.seconds
-        self.ui.spendtime.setText("%d s %.2f ms" % (ss, ms))
+        self.ui.spendtime.setText("%d.%.0f s" % (ss, ms))
 
     def gotoSearch(self, text):
         if text != "":
@@ -169,7 +170,6 @@ class showUI(QtWidgets.QMainWindow):
         self.endTime()
         self.searchingState(False)
         self.searchThreadTXT.quit()
-        self.searchThreadPIC.quit()
         self._reset()
         if res != {}:
             self._showPic(res)
@@ -181,17 +181,42 @@ class showUI(QtWidgets.QMainWindow):
         self.picSearchState = True
         self.searchingState(False)
         self.searchThreadTXT.quit()
-        self.searchThreadPIC.quit()
         self._reset()
         if res != {}:
             self._showPic(res)
         else:
             self._showEmpty()
 
+    def colectThreads(self, res):
+        #self.mutex.lock()
+        _result = {**res['pic'], **self.result['pic']}
+        self.result['pic'] = _result
+        self.threadsOK += 1
+        #self.mutex.unlock()
+
+        self.ui.spendtime.setText("%d / %d"%(self.threadsOK, self.threadsNUM))
+        if self.threadsOK == self.threadsNUM:
+            self.showResultOnModel(res)
+
     def gotoSearchOnModel(self, path):
         self.startTime()
-        self.searchThreadPIC.setKeyword(path)
-        self.searchThreadPIC.start()
+        self.threadSingle = searchBirdByPic()
+        self.threadSingle.setKeyword(path, net=self.network)
+        self.threadSingle.SCsignal.connect(self.showResultOnModel)
+        self.threadSingle.start()
+        self.searchingState(True)
+        self.setFather(path, True)
+        return
+        # multi thread
+        self.threads = []
+        self.threadsNUM = len(path)
+        self.threadsOK = 0
+        self.result = {'pic': {}, 'map': [1,1,1,1]}
+        for p in path:
+            self.threads.append(searchBirdByPic())
+            self.threads[-1].setKeyword([p], net=self.network)
+            self.threads[-1].SCsignal.connect(self.colectThreads)
+            self.threads[-1].start()
         self.searchingState(True)
         self.setFather(path, True)
 

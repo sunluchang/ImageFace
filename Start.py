@@ -8,7 +8,8 @@ m_date  @   2019-05-01
 UI for Digital-Image-Processing-HomeWork
 '''
 
-_LOGO_PATH = "/Users/thatslc/PycharmProjects/ImageFace/img/logo.png"
+from config import _SYS_ROOT_PATH_
+_LOGO_PATH = _SYS_ROOT_PATH_ + "img/logo.png"
 
 import sys
 from PyQt5 import QtWidgets, QtCore
@@ -17,7 +18,7 @@ from ui_src.mainUI import Ui_MainWindow
 
 from UIshow import showUI
 
-from engine.search import realSearch
+from engine.search import realSearch, testNet
 
 class mainUI(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
@@ -45,6 +46,36 @@ class mainUI(QtWidgets.QMainWindow):
         self.ui.slc.clicked.connect(self.slc)
         self.ui.czw.clicked.connect(self.czw)
         self.ui.ywt.clicked.connect(self.ywt)
+
+        self.network = False
+        self.connect = False
+        self.rGroup = QtWidgets.QButtonGroup(self)
+        self.rGroup.addButton(self.ui.local, 1)
+        self.rGroup.addButton(self.ui.net, 2)
+        self.rGroup.buttonClicked.connect(self.setNetWork)
+
+        self.netThread = testNet()
+        self.netThread.SCsignal.connect(self.testNetWork)
+        self.netThread.start()
+
+    def testNetWork(self, res):
+        if res == 0:
+            self.network = False
+            self.connect = False
+            self.ui.label_5.setStyleSheet("background-color:rgb(250, 66, 66); border-radius: 6px;")
+
+        else:
+            self.connect = True
+            self.ui.label_5.setStyleSheet("background-color:rgb(0, 200, 0); border-radius: 6px;")
+
+
+    def setNetWork(self):
+        now = self.rGroup.checkedId()
+        if self.connect:
+            if now == 1:
+                self.network = False
+            else:
+                self.network = True
 
     def getSelect(self):
         keyword = self.searchList[self.ui.listWidget.currentRow()]
@@ -75,7 +106,10 @@ class mainUI(QtWidgets.QMainWindow):
         if fileDialog[0]:
             # User select files
             self.selectFileList = fileDialog[0]
-            self.showRes2 = showUI()
+            if self.network:
+                self.showRes2 = showUI(net=self.network)
+            else:
+                self.showRes2 = showUI()
             self.showRes2.show()
             self.showRes2.gotoSearchOnModel(self.selectFileList)
 

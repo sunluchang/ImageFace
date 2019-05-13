@@ -13,7 +13,7 @@ from ui_src.slc import Ui_MainWindow
 import PIL.Image
 from PIL.ImageQt import ImageQt
 
-from config import SLCexe
+from config import SLCexe, _SYS_ROOT_PATH_
 
 import os
 
@@ -47,7 +47,7 @@ class slcUI(QtWidgets.QMainWindow):
 
     def selectFile(self):
         fileDialog = QtWidgets.QFileDialog.getOpenFileName(self, "选择图片",
-                                                            "/Users/thatslc/PycharmProjects/ImageFace/data/slc",
+                                                            _SYS_ROOT_PATH_ + "data/slc",
                                                             ("图片文件(*.png *.jpg *.tif *.bmp)"))
         # fileDialog is a tuple ([files, ...], [format])
         if fileDialog[0] != '':

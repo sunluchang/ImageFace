@@ -13,7 +13,7 @@ from ui_src.ywt import Ui_MainWindow
 import PIL.Image
 from PIL.ImageQt import ImageQt
 
-from config import YWTexe
+from config import YWTexe, _SYS_ROOT_PATH_
 
 import os
 
@@ -58,7 +58,7 @@ class ywtUI(QtWidgets.QMainWindow):
 
     def selectFile(self):
         fileDialog = QtWidgets.QFileDialog.getOpenFileName(self, "选择图片",
-                                                            "/Users/thatslc/PycharmProjects/ImageFace/data/ywt",
+                                                            _SYS_ROOT_PATH_ + "data/ywt",
                                                             ("图片文件(*.png *.jpg *.tif *.bmp)"))
         # fileDialog is a tuple ([files, ...], [format])
         if fileDialog[0] != '':
@@ -87,10 +87,10 @@ class ywtUI(QtWidgets.QMainWindow):
         res = os.system(order)
 
         if res == 0:
-            i1 = self._openIMG("/Users/thatslc/PycharmProjects/ImageFace/data/ywt/closeImage.bmp")
-            i2 = self._openIMG("/Users/thatslc/PycharmProjects/ImageFace/data/ywt/dilateImage.bmp")
-            i3 = self._openIMG("/Users/thatslc/PycharmProjects/ImageFace/data/ywt/erodeImage.bmp")
-            i4 = self._openIMG("/Users/thatslc/PycharmProjects/ImageFace/data/ywt/openImage.bmp")
+            i1 = self._openIMG(_SYS_ROOT_PATH_ + "data/ywt/closeImage.bmp")
+            i2 = self._openIMG(_SYS_ROOT_PATH_ + "data/ywt/dilateImage.bmp")
+            i3 = self._openIMG(_SYS_ROOT_PATH_ + "data/ywt/erodeImage.bmp")
+            i4 = self._openIMG(_SYS_ROOT_PATH_ + "data/ywt/openImage.bmp")
             self.ui.t1.setPixmap(QtGui.QPixmap.fromImage(i1))
             self.ui.t2.setPixmap(QtGui.QPixmap.fromImage(i2))
             self.ui.t3.setPixmap(QtGui.QPixmap.fromImage(i3))
