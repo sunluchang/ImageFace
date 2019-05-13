@@ -13,7 +13,7 @@ from ui_src.ywt import Ui_MainWindow
 import PIL.Image
 from PIL.ImageQt import ImageQt
 
-from config import YWTexe, _SYS_ROOT_PATH_
+from config import _YWT_EXE, _SYS_ROOT_PATH_
 
 import os
 
@@ -83,7 +83,7 @@ class ywtUI(QtWidgets.QMainWindow):
 
         self.kersize = self.ui.slider.value()
 
-        order = "%s %s /Users/thatslc/PycharmProjects/ImageFace/data/ywt/ %d %d %d" % (YWTexe, self.path, self.select, self.kersize, self.kersize)
+        order = "%s %s /Users/thatslc/PycharmProjects/ImageFace/data/ywt/ %d %d %d" % (_YWT_EXE, self.path, self.select, self.kersize, self.kersize)
         res = os.system(order)
 
         if res == 0:

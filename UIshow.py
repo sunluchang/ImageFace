@@ -18,7 +18,7 @@ from ui_src.showUI import Ui_showUI
 from engine.search import searchBirdByPic, searchBirdByTxt
 from engine.myPhoto import myPicLabel
 
-from config import LINE_PIC_NUM, _MINI_POS_SIZE, _MINISIZE, rightStyle, wrongStyle, normalStyle
+from config import _LINE_PIC_NUM, _MINI_POS_SIZE, _MINISIZE, rightStyle, wrongStyle, normalStyle
 
 class showUI(QtWidgets.QMainWindow):
     def __init__(self, net=False, parent=None):
@@ -77,10 +77,10 @@ class showUI(QtWidgets.QMainWindow):
         photos = self.photoData[self.photoDataKeys[index]]
 
         length = len(photos)
-        if length % LINE_PIC_NUM != 0:
-            length = (int(length / LINE_PIC_NUM) + 1) * _MINI_POS_SIZE
+        if length % _LINE_PIC_NUM != 0:
+            length = (int(length / _LINE_PIC_NUM) + 1) * _MINI_POS_SIZE
         else:
-            length = (length / LINE_PIC_NUM) * _MINI_POS_SIZE
+            length = (length / _LINE_PIC_NUM) * _MINI_POS_SIZE
 
         rightNUM = 0
         wrongNUM = 0
@@ -102,8 +102,8 @@ class showUI(QtWidgets.QMainWindow):
 
         picCount = 0
         for photo in photos:
-            picX = int(picCount % LINE_PIC_NUM)
-            picY = int(picCount / LINE_PIC_NUM)
+            picX = int(picCount % _LINE_PIC_NUM)
+            picY = int(picCount / _LINE_PIC_NUM)
 
             border = QtWidgets.QLabel()
             border.setGeometry(picX * _MINI_POS_SIZE + 7, picY * _MINI_POS_SIZE + 7,

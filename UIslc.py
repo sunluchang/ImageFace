@@ -13,7 +13,7 @@ from ui_src.slc import Ui_MainWindow
 import PIL.Image
 from PIL.ImageQt import ImageQt
 
-from config import SLCexe, _SYS_ROOT_PATH_
+from config import _SLC_EXE, _SYS_ROOT_PATH_
 
 import os
 
@@ -71,7 +71,7 @@ class slcUI(QtWidgets.QMainWindow):
             return
 
         newp = self.path.split('.')[0] + "Arith.jpg"
-        order = "%s %s %s %d" % (SLCexe, self.path, newp, 0)
+        order = "%s %s %s %d" % (_SLC_EXE, self.path, newp, 0)
         res = os.system(order)
 
         if res == 0:
@@ -83,7 +83,7 @@ class slcUI(QtWidgets.QMainWindow):
             return
 
         newp = self.path.split('.')[0] + "Arith.jpg"
-        order = "%s %s %s %d" % (SLCexe, self.path, newp, 1)
+        order = "%s %s %s %d" % (_SLC_EXE, self.path, newp, 1)
         res = os.system(order)
 
         if res == 0:
@@ -95,7 +95,7 @@ class slcUI(QtWidgets.QMainWindow):
             return
 
         newp = self.path.split('.')[0] + "Arith.jpg"
-        order = "%s %s %s %d %d" % (SLCexe, self.path, newp, 2, self.adaptivehold)
+        order = "%s %s %s %d %d" % (_SLC_EXE, self.path, newp, 2, self.adaptivehold)
         res = os.system(order)
 
         if res == 0:

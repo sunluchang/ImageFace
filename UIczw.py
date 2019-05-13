@@ -15,7 +15,7 @@ from PIL.ImageQt import ImageQt
 
 import os
 
-from config import CZWexe, _SYS_ROOT_PATH_
+from config import _CZW_EXE, _SYS_ROOT_PATH_
 
 class czwUI(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
@@ -70,7 +70,7 @@ class czwUI(QtWidgets.QMainWindow):
             return
 
         newp = self.path.split('.')[0]
-        order = "%s --image_file_name %s --image_save_name /Users/thatslc/PycharmProjects/ImageFace/data/czw" % (CZWexe, self.path)
+        order = "%s --image_file_name %s --image_save_name /Users/thatslc/PycharmProjects/ImageFace/data/czw" % (_CZW_EXE, self.path)
         res = os.system(order)
 
         if res == 0:

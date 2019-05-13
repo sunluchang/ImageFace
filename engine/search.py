@@ -160,7 +160,7 @@ class searchBirdByPic(QtCore.QThread):
         retrieval_image_keys = self._dealPath()
         if self.network:
             return self.netSearch(retrieval_image_keys)
-        dataset_root = '/Users/thatslc/Downloads/CUB_200_2011/CUB_200_2011'
+        dataset_root = _IMG_PATH[: -8]
         engine = retrieval(dataset_root, verbose=False)
         return engine.retrival_from_image_root(retrieval_image_keys)
         #test_data_result_mAP = retrieval_inst.cal_mAP()

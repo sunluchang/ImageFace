@@ -8,7 +8,7 @@ m_date  @   2019-05-01
 UI for Digital-Image-Processing-HomeWork
 '''
 
-from config import _SYS_ROOT_PATH_
+from config import _SYS_ROOT_PATH_, _IMG_PATH
 _LOGO_PATH = _SYS_ROOT_PATH_ + "img/logo.png"
 
 import sys
@@ -101,7 +101,7 @@ class mainUI(QtWidgets.QMainWindow):
             self.ui.lineEdit.setText('')
 
     def selectFiles(self):
-        fileDialog = QtWidgets.QFileDialog.getOpenFileNames(self, "选择图片", "/Users/thatslc/Downloads/CUB_200_2011/CUB_200_2011/images", ("图片文件(*.png *.jpg)"))
+        fileDialog = QtWidgets.QFileDialog.getOpenFileNames(self, "选择图片", _IMG_PATH, ("图片文件(*.png *.jpg)"))
         # fileDialog is a tuple ([files, ...], [format])
         if fileDialog[0]:
             # User select files
