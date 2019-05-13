@@ -14,7 +14,7 @@ import re
 from PyQt5 import QtCore
 from PIL.ImageQt import ImageQt
 from PIL import Image
-import time, os
+import os
 
 from engine.myPhoto import myPhoto, myPhoto2
 from engine.retrieval import retrieval

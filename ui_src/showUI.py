@@ -133,6 +133,12 @@ class Ui_showUI(object):
         font.setWeight(75)
         self.mAP4_2.setFont(font)
         self.mAP4_2.setObjectName("mAP4_2")
+        self.spendtime = QtWidgets.QLabel(self.centralwidget)
+        self.spendtime.setGeometry(QtCore.QRect(880, 680, 111, 16))
+        self.spendtime.setObjectName("spendtime")
+        self.label_2 = QtWidgets.QLabel(self.centralwidget)
+        self.label_2.setGeometry(QtCore.QRect(840, 680, 31, 16))
+        self.label_2.setObjectName("label_2")
         showUI.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(showUI)
@@ -146,4 +152,6 @@ class Ui_showUI(object):
         self.mAP1_2.setText(_translate("showUI", "mAP N=1"))
         self.mAP3_2.setText(_translate("showUI", "mAP N=10"))
         self.mAP4_2.setText(_translate("showUI", "mAP N=50"))
+        self.spendtime.setText(_translate("showUI", "-- --"))
+        self.label_2.setText(_translate("showUI", "耗时"))
 

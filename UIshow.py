@@ -8,8 +8,9 @@ m_date  @   2019-05-06
 UI for Digital-Image-Processing-HomeWork
 '''
 
-import sys
-from PyQt5 import QtWidgets, QtGui, QtCore
+import datetime
+
+from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 from ui_src.showUI import Ui_showUI
@@ -145,8 +146,19 @@ class showUI(QtWidgets.QMainWindow):
         else:
             self.ui.bird.setText("Done !")
 
+    def startTime(self):
+        self.s_now = datetime.datetime.now()
+
+    def endTime(self):
+        spend = datetime.datetime.now() - self.s_now
+        ms = spend.microseconds
+        ms /= 1000.0
+        ss = spend.seconds
+        self.ui.spendtime.setText("%d s %.2f ms" % (ss, ms))
+
     def gotoSearch(self, text):
         if text != "":
+            self.startTime()
             self.searchThreadTXT.setKeyword(text)
             self.searchThreadTXT.start()
             self.searchingState(True)
@@ -154,6 +166,7 @@ class showUI(QtWidgets.QMainWindow):
             print("NOT NULL FOR KEYWORD")
 
     def showResult(self, res):
+        self.endTime()
         self.searchingState(False)
         self.searchThreadTXT.quit()
         self.searchThreadPIC.quit()
@@ -164,6 +177,7 @@ class showUI(QtWidgets.QMainWindow):
             self._showEmpty()
 
     def showResultOnModel(self, res):
+        self.endTime()
         self.picSearchState = True
         self.searchingState(False)
         self.searchThreadTXT.quit()
@@ -175,6 +189,7 @@ class showUI(QtWidgets.QMainWindow):
             self._showEmpty()
 
     def gotoSearchOnModel(self, path):
+        self.startTime()
         self.searchThreadPIC.setKeyword(path)
         self.searchThreadPIC.start()
         self.searchingState(True)

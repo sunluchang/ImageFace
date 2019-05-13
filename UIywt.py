@@ -53,16 +53,6 @@ class ywtUI(QtWidgets.QMainWindow):
         self.ui.slider.valueChanged.connect(self.ui.spinBox.setValue)
         self.ui.spinBox.valueChanged.connect(self.ui.slider.setValue)
 
-
-    def setNewValue(self, res):
-        self.kersize = int(res + 1)
-        self.ui.lineEdit.setText(self.kersize)
-
-    def setNewSlider(self, r):
-        print(r)
-        self.kersize = int(r)
-        #self.ui.slider.setValue(int(r))
-
     def getClick(self):
         self.select = self.buttonGroup.checkedId()
 
@@ -90,6 +80,8 @@ class ywtUI(QtWidgets.QMainWindow):
     def doit(self):
         if not self.path:
             return
+
+        self.kersize = self.ui.slider.value()
 
         order = "%s %s /Users/thatslc/PycharmProjects/ImageFace/data/ywt/ %d %d %d" % (YWTexe, self.path, self.select, self.kersize, self.kersize)
         res = os.system(order)
