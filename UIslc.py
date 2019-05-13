@@ -8,10 +8,12 @@ m_date  @   2019-05-11
 UI for Digital-Image-Processing-HomeWork
 '''
 
-from PyQt5 import QtWidgets, QtCore, QtGui
+from PyQt5 import QtWidgets, QtGui
 from ui_src.slc import Ui_MainWindow
 import PIL.Image
 from PIL.ImageQt import ImageQt
+
+from config import SLCexe
 
 import os
 
@@ -69,7 +71,7 @@ class slcUI(QtWidgets.QMainWindow):
             return
 
         newp = self.path.split('.')[0] + "Arith.jpg"
-        order = "/Users/thatslc/PycharmProjects/ImageFace/mini/slc %s %s %d" % (self.path, newp, 0)
+        order = "%s %s %s %d" % (SLCexe, self.path, newp, 0)
         res = os.system(order)
 
         if res == 0:
@@ -81,7 +83,7 @@ class slcUI(QtWidgets.QMainWindow):
             return
 
         newp = self.path.split('.')[0] + "Arith.jpg"
-        order = "/Users/thatslc/PycharmProjects/ImageFace/mini/slc %s %s %d" % (self.path, newp, 1)
+        order = "%s %s %s %d" % (SLCexe, self.path, newp, 1)
         res = os.system(order)
 
         if res == 0:
@@ -93,7 +95,7 @@ class slcUI(QtWidgets.QMainWindow):
             return
 
         newp = self.path.split('.')[0] + "Arith.jpg"
-        order = "/Users/thatslc/PycharmProjects/ImageFace/mini/slc %s %s %d %d" % (self.path, newp, 2, self.adaptivehold)
+        order = "%s %s %s %d %d" % (SLCexe, self.path, newp, 2, self.adaptivehold)
         res = os.system(order)
 
         if res == 0:

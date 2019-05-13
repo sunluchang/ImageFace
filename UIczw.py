@@ -8,12 +8,14 @@ m_date  @   2019-05-11
 UI for Digital-Image-Processing-HomeWork
 '''
 
-from PyQt5 import QtWidgets, QtCore, QtGui
+from PyQt5 import QtWidgets, QtGui
 from ui_src.slc import Ui_MainWindow
 import PIL.Image
 from PIL.ImageQt import ImageQt
 
 import os
+
+from config import CZWexe
 
 class czwUI(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
@@ -68,7 +70,7 @@ class czwUI(QtWidgets.QMainWindow):
             return
 
         newp = self.path.split('.')[0]
-        order = "/Users/thatslc/PycharmProjects/ImageFace/mini/czw --image_file_name %s --image_save_name /Users/thatslc/PycharmProjects/ImageFace/data/czw" % (self.path)
+        order = "%s --image_file_name %s --image_save_name /Users/thatslc/PycharmProjects/ImageFace/data/czw" % (CZWexe, self.path)
         res = os.system(order)
 
         print(order)

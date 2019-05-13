@@ -15,9 +15,9 @@ from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtGui import QPixmap
 from ui_src.mainUI import Ui_MainWindow
 
-from showUI import showUI
+from UIshow import showUI
 
-from search import realSearch
+from engine.search import realSearch
 
 class mainUI(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
@@ -104,17 +104,17 @@ class mainUI(QtWidgets.QMainWindow):
             self.ui.listWidget.close()
 
     def slc(self):
-        from slcUI import slcUI
+        from UIslc import slcUI
         self.slcUI = slcUI()
         self.slcUI.show()
 
     def czw(self):
-        from czwUI import czwUI
+        from UIczw import czwUI
         self.czwUI = czwUI()
         self.czwUI.show()
 
     def ywt(self):
-        from ywtUI import ywtUI
+        from UIywt import ywtUI
         self.ywtUI = ywtUI()
         self.ywtUI.show()
 

@@ -8,10 +8,12 @@ m_date  @   2019-05-11
 UI for Digital-Image-Processing-HomeWork
 '''
 
-from PyQt5 import QtWidgets, QtCore, QtGui
+from PyQt5 import QtWidgets, QtGui
 from ui_src.ywt import Ui_MainWindow
 import PIL.Image
 from PIL.ImageQt import ImageQt
+
+from config import YWTexe
 
 import os
 
@@ -89,7 +91,7 @@ class ywtUI(QtWidgets.QMainWindow):
         if not self.path:
             return
 
-        order = "/Users/thatslc/PycharmProjects/ImageFace/mini/ywt %s /Users/thatslc/PycharmProjects/ImageFace/data/ywt/ %d %d %d" % (self.path, self.select, self.kersize, self.kersize)
+        order = "%s %s /Users/thatslc/PycharmProjects/ImageFace/data/ywt/ %d %d %d" % (YWTexe, self.path, self.select, self.kersize, self.kersize)
         res = os.system(order)
 
         if res == 0:

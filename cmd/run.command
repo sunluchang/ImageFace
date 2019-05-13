@@ -1,1 +1,0 @@
-/anaconda3/envs/Qt/bin/python /Users/thatslc/PycharmProjects/ImageFace/mainUI.py

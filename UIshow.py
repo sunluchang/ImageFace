@@ -14,9 +14,8 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 from ui_src.showUI import Ui_showUI
 
-from search import searchBirdByPic, searchBirdByTxt
-
-from myPhoto import myPicLabel
+from engine.search import searchBirdByPic, searchBirdByTxt
+from engine.myPhoto import myPicLabel
 
 from config import LINE_PIC_NUM, _MINI_POS_SIZE, _MINISIZE, rightStyle, wrongStyle, normalStyle
 
