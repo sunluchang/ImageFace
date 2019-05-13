@@ -36,18 +36,30 @@ class ywtUI(QtWidgets.QMainWindow):
 
         self.ui.pushButton.clicked.connect(self.selectFile)
         self.ui.start.clicked.connect(self.doit)
-        self.ui.slider.valueChanged.connect(self.setNewValue)
 
         self.buttonGroup = QtWidgets.QButtonGroup(self)
-        self.ui.radioButton
         self.buttonGroup.addButton(self.ui.radioButton, 0)
         self.buttonGroup.addButton(self.ui.radioButton_2, 1)
         self.buttonGroup.addButton(self.ui.radioButton_3, 2)
-        self.buttonGroup.buttonClicked.connect(self.getClick)
+
+        self.ui.slider.setMaximum(1)
+        self.ui.slider.setMaximum(100)
+        self.ui.slider.setSingleStep(1)
+        self.ui.spinBox.setMaximum(1)
+        self.ui.spinBox.setMaximum(100)
+        self.ui.spinBox.setSingleStep(1)
+        self.ui.slider.valueChanged.connect(self.ui.spinBox.setValue)
+        self.ui.spinBox.valueChanged.connect(self.ui.slider.setValue)
+
 
     def setNewValue(self, res):
         self.kersize = int(res + 1)
-        self.ui.label.setText(str(self.kersize))
+        self.ui.lineEdit.setText(self.kersize)
+
+    def setNewSlider(self, r):
+        print(r)
+        self.kersize = int(r)
+        #self.ui.slider.setValue(int(r))
 
     def getClick(self):
         self.select = self.buttonGroup.checkedId()

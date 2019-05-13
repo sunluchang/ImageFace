@@ -176,7 +176,7 @@
     <property name="geometry">
      <rect>
       <x>540</x>
-      <y>110</y>
+      <y>100</y>
       <width>100</width>
       <height>20</height>
      </rect>
@@ -192,7 +192,7 @@
     <property name="geometry">
      <rect>
       <x>540</x>
-      <y>140</y>
+      <y>130</y>
       <width>100</width>
       <height>20</height>
      </rect>
@@ -205,7 +205,7 @@
     <property name="geometry">
      <rect>
       <x>540</x>
-      <y>170</y>
+      <y>160</y>
       <width>100</width>
       <height>20</height>
      </rect>
@@ -218,7 +218,7 @@
     <property name="geometry">
      <rect>
       <x>530</x>
-      <y>200</y>
+      <y>190</y>
       <width>91</width>
       <height>22</height>
      </rect>
@@ -227,20 +227,14 @@
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QSpinBox" name="spinBox">
     <property name="geometry">
      <rect>
-      <x>530</x>
-      <y>220</y>
-      <width>91</width>
-      <height>16</height>
+      <x>570</x>
+      <y>210</y>
+      <width>48</width>
+      <height>24</height>
      </rect>
-    </property>
-    <property name="text">
-     <string>1</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
     </property>
    </widget>
   </widget>
