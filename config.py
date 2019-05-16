@@ -31,7 +31,7 @@ _CZW_EXE = _SYS_ROOT_PATH_ + "engine/czw"
 _YWT_EXE = _SYS_ROOT_PATH_ + "engine/ywt"
 
 # 服务器配置
-SERVER_ADDR = "http://162.105.16.168/dlapp/"
+SERVER_ADDR = "http://162.105.16.205/dlapp/"
 
 # ======================================================================= #
 # ================    DO    NOT    CHANGE    HERE    ==================== #
