@@ -97,7 +97,6 @@ class searchBirdByPic(QtCore.QThread):
         self.network = False
 
     def setKeyword(self, key, net=False):
-        print(key)
         self.path = key
         self.network = net
 

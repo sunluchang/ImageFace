@@ -70,7 +70,7 @@ class slcUI(QtWidgets.QMainWindow):
         if not self.path:
             return
 
-        newp = self.path.split('.')[0] + "Arith.jpg"
+        newp = self.path.split('.')[0] + "_ARITH.jpg"
         order = "%s %s %s %d" % (_SLC_EXE, self.path, newp, 0)
         res = os.system(order)
 
@@ -82,7 +82,7 @@ class slcUI(QtWidgets.QMainWindow):
         if not self.path:
             return
 
-        newp = self.path.split('.')[0] + "Arith.jpg"
+        newp = self.path.split('.')[0] + "_GEO.jpg"
         order = "%s %s %s %d" % (_SLC_EXE, self.path, newp, 1)
         res = os.system(order)
 
@@ -94,7 +94,7 @@ class slcUI(QtWidgets.QMainWindow):
         if not self.path:
             return
 
-        newp = self.path.split('.')[0] + "Arith.jpg"
+        newp = self.path.split('.')[0] + "_SELF.jpg"
         order = "%s %s %s %d %d" % (_SLC_EXE, self.path, newp, 2, self.adaptivehold)
         res = os.system(order)
 
