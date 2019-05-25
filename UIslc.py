@@ -22,7 +22,7 @@ class slcUI(QtWidgets.QMainWindow):
         super(slcUI, self).__init__(parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.setFixedSize(600, 480)
+        self.setFixedSize(850, 480)
 
         self.setWindowTitle('FILTER')
 
@@ -40,6 +40,13 @@ class slcUI(QtWidgets.QMainWindow):
         self.ui.pushButton.clicked.connect(self.selectFile)
 
         self.ui.slider.valueChanged.connect(self.setNewValue)
+
+        self.adp2 = QtWidgets.QPushButton('自适应中值', self)
+        self.adp2.setGeometry(self.ui.cc.x(), self.ui.cc.y() + 100, self.ui.cc.width(), self.ui.cc.height())
+        self.adp2.clicked.connect(self.adaptive2)
+
+        self.adp2l = QtWidgets.QLabel(self)
+        self.adp2l.setGeometry(self.adp2.x() + self.adp2.width() + 20, self.ui.c.y(), self.ui.c.width(), self.ui.c.height())
 
     def setNewValue(self, res):
         self.adaptivehold = int(res/99.0 * 4000)
@@ -101,6 +108,18 @@ class slcUI(QtWidgets.QMainWindow):
         if res == 0:
             img = self._openIMG(newp)
             self.ui.c.setPixmap(QtGui.QPixmap.fromImage(img))
+
+    def adaptive2(self):
+        if not self.path:
+            return
+
+        newp = self.path.split('.')[0] + "_MSELF.jpg"
+        order = "%s %s %s %d" % (_SLC_EXE, self.path, newp, 3)
+        res = os.system(order)
+
+        if res == 0:
+            img = self._openIMG(newp)
+            self.adp2l.setPixmap(QtGui.QPixmap.fromImage(img))
 
     def showRaw(self):
         if not self.path:
